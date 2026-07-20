@@ -24,6 +24,29 @@ const pitchPlan = [
   ["结尾 30-50 字", "简短收束，不要重复简历，不要写空泛热情。"],
 ];
 
+const apsDifferences = [
+  {
+    title: "不是展示优秀，而是证明 merit",
+    detail:
+      "普通求职常靠亮点包装；APS 更看你是否用具体证据证明自己最符合岗位要求，并能被公平比较。",
+  },
+  {
+    title: "不是只投简历，而是写 pitch / criteria",
+    detail:
+      "CV 通常只是基础材料。很多 APS 岗位真正拉开差距的是 500-word pitch、statement of claims 或 selection criteria response。",
+  },
+  {
+    title: "不是关键词匹配，而是等级匹配",
+    detail:
+      "APS 3/4/5/6 对独立性、复杂度、判断空间和责任范围要求不同。等级投错，材料写得再漂亮也会吃亏。",
+  },
+  {
+    title: "不是面试表现一次定胜负，而是全程验证",
+    detail:
+      "申请、面试和 referee check 是一条证据链。你写过的 claim，panel 可能会在面试和推荐人环节继续验证。",
+  },
+];
+
 const criteriaSteps = [
   "拆 JD：圈出 duties、capabilities、technical requirements 和 assessment language。",
   "选例子：每个标准只放 1 个强例子，不堆 3 个弱例子。",
@@ -101,20 +124,36 @@ function App() {
       <section className="workspace" id="top">
         <header className="hero">
           <p className="eyebrow">只针对 APS 申请</p>
-          <h1>不要把自己写得更努力。要把经历写成 panel 能打分的证据。</h1>
+          <h1>APS 求职最大的不同：你不是在推销自己，而是在提交可评分证据。</h1>
           <p className="hero-text">
-            APS 申请最核心的不是简历版式，也不是投多少岗位，而是把你的经历对应到
-            job description、selection criteria、APS level 和 merit ranking。
+            普通求职常问“我怎么显得更强”。APS 申请首先要问：
+            panel 能否按 merit、selection criteria 和 APS level 公平判断我适合这个岗位。
           </p>
           <div className="hero-actions">
-            <a className="primary-action" href="#pitch">
-              先写 500-word pitch <ArrowRight size={18} />
+            <a className="primary-action" href="#differences">
+              先看 4 个不同 <ArrowRight size={18} />
             </a>
             <a className="secondary-action" href="#logic">
               看评分逻辑
             </a>
           </div>
         </header>
+
+        <section id="differences" className="difference-section" aria-label="APS 和普通求职的最大不同">
+          <div className="section-kicker">先建立正确框架</div>
+          <h2>APS 申请和普通求职最不一样的 4 件事</h2>
+          <div className="difference-list">
+            {apsDifferences.map((item, index) => (
+              <article key={item.title}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.detail}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
 
         <section className="lead-example" aria-label="APS 改写例子">
           <div className="example-heading">
@@ -133,15 +172,15 @@ function App() {
 
         <section className="diagnosis" aria-label="页面判断">
           <article>
-            <strong>先判断等级</strong>
-            <span>APS 3/4/5/6 对复杂度、独立性和责任的要求不同。</span>
+            <strong>先读 JD</strong>
+            <span>找出 duty、criteria、level 和 assessment language。</span>
           </article>
           <article>
-            <strong>再写证据</strong>
+            <strong>再选证据</strong>
             <span>每个 claim 都要有场景、动作、结果和岗位贴合。</span>
           </article>
           <article>
-            <strong>最后验证</strong>
+            <strong>最后验证链条</strong>
             <span>面试和 referee 会检查你写的 claims 是否站得住。</span>
           </article>
         </section>
