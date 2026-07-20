@@ -2,87 +2,109 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import {
   ArrowRight,
-  BriefcaseBusiness,
-  CalendarCheck,
+  BadgeCheck,
+  BookOpenCheck,
   CheckCircle2,
-  ClipboardList,
-  FileText,
-  GraduationCap,
-  LayoutDashboard,
-  Linkedin,
-  MailCheck,
-  MessageSquareText,
-  Search,
+  ClipboardCheck,
+  FilePenLine,
+  Gauge,
+  Layers3,
+  MessageSquareQuote,
+  Scale,
+  ShieldCheck,
+  Sparkles,
   Target,
+  UserCheck,
 } from "lucide-react";
 import "./styles.css";
 
-const phases = [
+const priorities = [
   {
-    title: "定位岗位",
-    time: "第 1-2 天",
-    detail: "把专业、过往经验和签证条件翻译成 2-3 个可投岗位方向。",
-    tasks: ["确定目标岗位标题", "收集 30 个真实 JD", "整理技能关键词"],
+    icon: <Scale size={22} />,
+    title: "Merit 证据",
+    tag: "第一优先级",
+    detail:
+      "APS 不是看谁写得最热情，而是看谁能证明自己最符合岗位要求。每一句 claim 都要能被例子、结果和 referee 支撑。",
   },
   {
-    title: "打磨材料",
-    time: "第 3-7 天",
-    detail: "准备澳洲格式简历、LinkedIn、项目故事和可复用 cover letter。",
-    tasks: ["完成 1 页核心简历", "优化 LinkedIn headline", "写 6 个 STAR 故事"],
+    icon: <FilePenLine size={22} />,
+    title: "Pitch / Statement",
+    tag: "最容易拉开差距",
+    detail:
+      "很多 APS 申请 CV 不够用，关键在 500-word pitch、statement of claims 或 selection criteria responses。",
   },
   {
-    title: "建立投递节奏",
-    time: "第 2 周起",
-    detail: "每天固定搜索、筛选、定制、投递和记录，而不是临时刷岗位。",
-    tasks: ["每天新增 10-15 个岗位", "投递 5-8 个匹配岗位", "记录渠道和反馈"],
-  },
-  {
-    title: "面试转化",
-    time: "有回复后",
-    detail: "围绕 JD 反推问题，用项目经历证明能力，用 follow-up 增加专业感。",
-    tasks: ["准备 90 秒自我介绍", "按 JD 复盘技能证据", "面后 24 小时内跟进"],
+    icon: <Layers3 size={22} />,
+    title: "APS 等级匹配",
+    tag: "先判断能不能打",
+    detail:
+      "APS 3/4/5/6 的区别不是标题好不好听，而是监督程度、复杂度、判断空间、stakeholder 范围和产出责任。",
   },
 ];
 
-const roles = [
+const pitchPlan = [
+  ["开头 50-70 字", "直接声明你申请什么岗位，并点出 2-3 个最相关能力。"],
+  ["证据一 130-150 字", "用 STAR 写一个最强例子，优先对应 duty 或第一个 selection criterion。"],
+  ["证据二 130-150 字", "换一个能力维度，例如 policy、client service、data、case work、stakeholder。"],
+  ["岗位贴合 80-100 字", "把你的经验接回 agency、team outcome、public service context。"],
+  ["结尾 30-50 字", "简短收束，不要重复简历，不要写空泛热情。"],
+];
+
+const criteriaSteps = [
+  "拆 JD：圈出 duties、capabilities、technical requirements 和 assessment language。",
+  "选例子：每个标准只放 1 个强例子，不堆 3 个弱例子。",
+  "写证据：Situation 轻写，Task/Action/Result 重写。",
+  "贴等级：APS 4 写可靠执行，APS 5 写独立判断，APS 6 写协调复杂工作。",
+  "删空话：去掉 passionate、hardworking、team player 这种不能打分的词。",
+];
+
+const levelSignals = [
   {
-    area: "Data / BI",
-    titles: "Data Analyst, BI Analyst, Reporting Analyst",
-    skills: "SQL, Excel, Power BI, Tableau, Python, stakeholder reporting",
-    keywords: "junior data analyst, reporting analyst, graduate analyst",
+    level: "APS 3",
+    signal: "按流程准确执行，能处理常见问题，及时升级复杂事项。",
+    proof: "customer enquiries, admin processing, records, service desk, routine case work",
   },
   {
-    area: "IT Support",
-    titles: "Service Desk Analyst, IT Support Officer, Helpdesk Technician",
-    skills: "Windows, Microsoft 365, Active Directory, ticketing, troubleshooting",
-    keywords: "level 1 support, service desk, helpdesk, desktop support",
+    level: "APS 4",
+    signal: "能独立完成一组任务，判断常见例外，和内部/外部对象沟通。",
+    proof: "case officer, program support, compliance support, reporting, stakeholder follow-up",
   },
   {
-    area: "Business / Admin",
-    titles: "Project Coordinator, Operations Assistant, Administration Officer",
-    skills: "documentation, coordination, Excel, CRM, process improvement",
-    keywords: "project coordinator, operations assistant, admin officer",
+    level: "APS 5",
+    signal: "能在有限指导下处理复杂任务，分析信息，给出建议或改进。",
+    proof: "policy officer, data analyst, project officer, complex cases, briefing input",
   },
   {
-    area: "Engineering",
-    titles: "Graduate Engineer, Project Engineer, Civil Designer",
-    skills: "AutoCAD, compliance, site coordination, documentation, safety",
-    keywords: "graduate engineer, junior engineer, project engineer",
+    level: "APS 6",
+    signal: "负责一个工作流或小团队成果，协调风险、质量、priority 和 stakeholder。",
+    proof: "senior officer, team coordination, project delivery, policy advice, quality assurance",
   },
 ];
 
-const resumeBullets = [
-  "用结果开头：Improved weekly reporting accuracy by consolidating 4 manual spreadsheets into one controlled tracker.",
-  "用工具补强：Built SQL queries and Power BI dashboards to monitor application volume, response rate and interview conversion.",
-  "用协作表达：Coordinated with recruiters, hiring managers and candidates to keep documentation complete and deadlines visible.",
+const rewriteExamples = [
+  {
+    weak: "I worked in customer service and helped customers.",
+    strong:
+      "Resolved high-volume client enquiries by applying policy guidelines, documenting decisions accurately, and escalating complex matters where risk or eligibility issues required senior review.",
+  },
+  {
+    weak: "I am good at communication and teamwork.",
+    strong:
+      "Coordinated with internal teams and external clients to clarify requirements, manage competing deadlines, and keep stakeholders informed of progress and next steps.",
+  },
+  {
+    weak: "I used Excel and made reports.",
+    strong:
+      "Built weekly Excel reporting to track application volume, overdue actions and outcome trends, giving managers a clearer basis for prioritising case work.",
+  },
 ];
 
-const weeklyPlan = [
-  ["周一", "更新关键词库，保存 20 个岗位"],
-  ["周二", "定制简历，投递 6-8 个高匹配岗位"],
-  ["周三", "LinkedIn 连接 recruiter，发 5 条短消息"],
-  ["周四", "复盘无回复岗位，调整简历关键词"],
-  ["周五", "准备面试故事库，模拟 3 个问题"],
+const interviewQuestions = [
+  "Tell us about a time you applied policy or procedure in a difficult situation.",
+  "Describe a time you managed competing priorities.",
+  "Give an example of working with a difficult stakeholder or client.",
+  "Tell us about a mistake, what you did, and what changed afterwards.",
+  "How would you handle confidential or sensitive information?",
 ];
 
 function App() {
@@ -92,181 +114,236 @@ function App() {
         <div className="brand">
           <div className="brand-mark">APS</div>
           <div>
-            <p>找工指导</p>
-            <span>Australia job search playbook</span>
+            <p>Application Toolkit</p>
+            <span>Evidence first, not generic job advice</span>
           </div>
         </div>
         <nav>
-          <a href="#roadmap"><LayoutDashboard size={18} />路线图</a>
-          <a href="#roles"><BriefcaseBusiness size={18} />岗位库</a>
-          <a href="#resume"><FileText size={18} />简历</a>
-          <a href="#apply"><CalendarCheck size={18} />投递</a>
-          <a href="#interview"><MessageSquareText size={18} />面试</a>
+          <a href="#logic"><Scale size={18} />评分逻辑</a>
+          <a href="#pitch"><FilePenLine size={18} />Pitch</a>
+          <a href="#criteria"><BookOpenCheck size={18} />Selection Criteria</a>
+          <a href="#levels"><Gauge size={18} />APS 等级</a>
+          <a href="#interview"><MessageSquareQuote size={18} />面试</a>
+          <a href="#sources"><ShieldCheck size={18} />官方依据</a>
         </nav>
       </aside>
 
       <section className="workspace">
-        <header className="topbar">
-          <div>
-            <p className="eyebrow">APS Job Search Guide</p>
-            <h1>把找工拆成每天能执行的动作</h1>
+        <header className="hero">
+          <div className="hero-copy">
+            <p className="eyebrow">APS 求职不是普通投简历</p>
+            <h1>把你的经历翻译成 selection panel 能打分的证据</h1>
+            <p className="hero-text">
+              这里优先解决 APS 申请最关键的东西：merit evidence、500-word pitch、
+              selection criteria、APS level fit、panel interview 和 referee validation。
+            </p>
+            <div className="hero-actions">
+              <a className="primary-action" href="#pitch">
+                写 pitch <ArrowRight size={18} />
+              </a>
+              <a className="secondary-action" href="#logic">
+                先看评分逻辑
+              </a>
+            </div>
           </div>
-          <a className="primary-action" href="#apply">
-            开始计划 <ArrowRight size={18} />
-          </a>
+          <div className="hero-example" aria-label="APS 改写例子">
+            <div className="example-label">普通经历怎么变成 APS 证据</div>
+            <p className="weak">I helped customers and answered questions.</p>
+            <ArrowRight size={20} />
+            <p className="strong">
+              Applied policy guidelines to resolve client enquiries, documented outcomes,
+              and escalated complex cases where eligibility or risk required review.
+            </p>
+          </div>
         </header>
 
-        <section className="status-strip" aria-label="核心指标">
-          <Metric label="目标岗位" value="2-3 个" icon={<Target size={20} />} />
-          <Metric label="每日投递" value="5-8 个" icon={<MailCheck size={20} />} />
-          <Metric label="简历版本" value="按方向拆分" icon={<ClipboardList size={20} />} />
-          <Metric label="复盘周期" value="每周一次" icon={<CheckCircle2 size={20} />} />
+        <section className="priority-grid" aria-label="APS 申请优先级">
+          {priorities.map((item) => (
+            <article className="priority-card" key={item.title}>
+              <div className="card-top">
+                <span>{item.icon}</span>
+                <small>{item.tag}</small>
+              </div>
+              <h2>{item.title}</h2>
+              <p>{item.detail}</p>
+            </article>
+          ))}
         </section>
 
-        <section id="roadmap" className="section">
+        <section id="logic" className="section split">
+          <div>
+            <SectionHeader
+              icon={<Target size={22} />}
+              title="APS 申请核心逻辑"
+              note="不要先问简历好不好看，先问 panel 能不能给你打分。"
+            />
+            <div className="flow">
+              {[
+                ["Job Description", "岗位到底要你做什么"],
+                ["Selection Criteria", "panel 会按什么维度评估"],
+                ["Your Evidence", "你有什么可验证的例子"],
+                ["Merit Ranking", "你和其他候选人相比强在哪里"],
+              ].map(([title, detail], index) => (
+                <article key={title}>
+                  <span>{index + 1}</span>
+                  <div>
+                    <h3>{title}</h3>
+                    <p>{detail}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+          <aside className="warning-panel">
+            <h3>可以丢弃或放后面</h3>
+            <ul>
+              <li>大篇幅 LinkedIn 教程</li>
+              <li>泛泛的每日海投计划</li>
+              <li>漂亮但没有证据的简历模板</li>
+              <li>只讲 Seek 关键词的岗位库</li>
+              <li>没有 APS 等级区分的面试题</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section id="pitch" className="section">
           <SectionHeader
-            icon={<GraduationCap size={22} />}
-            title="找工路线图"
-            note="先建立系统，再追求数量。"
+            icon={<FilePenLine size={22} />}
+            title="500-Word Pitch 结构"
+            note="Pitch 的任务不是复述简历，而是集中证明你符合岗位要求。"
           />
-          <div className="phase-grid">
-            {phases.map((phase, index) => (
-              <article className="phase-card" key={phase.title}>
-                <div className="phase-number">{index + 1}</div>
-                <div>
-                  <span className="time-chip">{phase.time}</span>
-                  <h3>{phase.title}</h3>
-                  <p>{phase.detail}</p>
-                  <ul>
-                    {phase.tasks.map((task) => (
-                      <li key={task}><CheckCircle2 size={16} />{task}</li>
-                    ))}
-                  </ul>
-                </div>
+          <div className="pitch-board">
+            {pitchPlan.map(([range, purpose]) => (
+              <article key={range}>
+                <strong>{range}</strong>
+                <p>{purpose}</p>
               </article>
             ))}
           </div>
         </section>
 
-        <section id="roles" className="section">
-          <SectionHeader
-            icon={<Search size={22} />}
-            title="岗位方向库"
-            note="从真实岗位标题反推简历关键词。"
-          />
-          <div className="role-table" role="table" aria-label="岗位方向库">
-            <div className="role-row role-head" role="row">
-              <span>方向</span>
-              <span>常见标题</span>
-              <span>核心技能</span>
-              <span>搜索词</span>
+        <section id="criteria" className="section split">
+          <div>
+            <SectionHeader
+              icon={<BookOpenCheck size={22} />}
+              title="Selection Criteria 写法"
+              note="每个回答都要像一段小型证据陈述，而不是个人品质声明。"
+            />
+            <div className="step-list">
+              {criteriaSteps.map((step) => (
+                <div key={step}>
+                  <CheckCircle2 size={18} />
+                  <span>{step}</span>
+                </div>
+              ))}
             </div>
-            {roles.map((role) => (
-              <div className="role-row" role="row" key={role.area}>
-                <strong>{role.area}</strong>
-                <span>{role.titles}</span>
-                <span>{role.skills}</span>
-                <span>{role.keywords}</span>
+          </div>
+          <div className="template-panel">
+            <h3>回答骨架</h3>
+            <p>
+              <b>Claim:</b> 我具备这个能力。
+            </p>
+            <p>
+              <b>Context:</b> 在什么岗位、任务或限制下使用过。
+            </p>
+            <p>
+              <b>Action:</b> 我具体做了什么判断、沟通、分析或交付。
+            </p>
+            <p>
+              <b>Result:</b> 产生了什么可观察结果。
+            </p>
+            <p>
+              <b>Fit:</b> 这个例子为什么对应本岗位。
+            </p>
+          </div>
+        </section>
+
+        <section id="levels" className="section">
+          <SectionHeader
+            icon={<Gauge size={22} />}
+            title="APS 等级判断"
+            note="先投对等级，再谈命中率。等级错了，材料再顺也很难进。"
+          />
+          <div className="level-table" role="table" aria-label="APS level signals">
+            <div className="level-row level-head" role="row">
+              <span>等级</span>
+              <span>panel 想看到的能力信号</span>
+              <span>可用经历关键词</span>
+            </div>
+            {levelSignals.map((item) => (
+              <div className="level-row" role="row" key={item.level}>
+                <strong>{item.level}</strong>
+                <span>{item.signal}</span>
+                <span>{item.proof}</span>
               </div>
             ))}
           </div>
         </section>
 
-        <section id="resume" className="section two-column">
-          <div>
-            <SectionHeader
-              icon={<FileText size={22} />}
-              title="简历与 LinkedIn"
-              note="重点是让雇主在 10 秒内看懂你能做什么。"
-            />
-            <div className="content-panel">
-              <h3>简历结构</h3>
-              <ol>
-                <li>姓名、城市、邮箱、电话、LinkedIn。</li>
-                <li>3 行 profile summary，写目标岗位和关键技能。</li>
-                <li>Skills 按工具、业务能力、软技能分组。</li>
-                <li>经历 bullet 使用 Action + Tool + Result。</li>
-                <li>项目经历要对应目标岗位，而不是只罗列课程。</li>
-              </ol>
-            </div>
-          </div>
-          <div className="content-panel accent-panel">
-            <div className="panel-title">
-              <Linkedin size={20} />
-              <h3>可复用 bullet</h3>
-            </div>
-            {resumeBullets.map((bullet) => (
-              <p className="quote-line" key={bullet}>{bullet}</p>
+        <section className="section">
+          <SectionHeader
+            icon={<Sparkles size={22} />}
+            title="Before / After 改写"
+            note="APS 材料要从性格描述变成可验证行为。"
+          />
+          <div className="rewrite-grid">
+            {rewriteExamples.map((item) => (
+              <article key={item.weak}>
+                <p className="weak">{item.weak}</p>
+                <p className="strong">{item.strong}</p>
+              </article>
             ))}
           </div>
         </section>
 
-        <section id="apply" className="section two-column">
+        <section id="interview" className="section split">
           <div>
             <SectionHeader
-              icon={<CalendarCheck size={22} />}
-              title="每周投递系统"
-              note="用固定节奏减少焦虑，用数据判断哪里要改。"
+              icon={<MessageSquareQuote size={22} />}
+              title="APS 面试准备"
+              note="Panel 通常想验证：你写的证据是不是真的，你能否在岗位场景里稳定表现。"
             />
-            <div className="week-grid">
-              {weeklyPlan.map(([day, task]) => (
-                <article key={day}>
-                  <strong>{day}</strong>
-                  <span>{task}</span>
-                </article>
+            <div className="question-list">
+              {interviewQuestions.map((question) => (
+                <label key={question}>
+                  <input type="checkbox" />
+                  <span>{question}</span>
+                </label>
               ))}
             </div>
           </div>
-          <div className="content-panel checklist">
-            <h3>每日检查</h3>
-            {[
-              "今天是否只投高匹配岗位",
-              "简历是否包含 JD 里的关键词",
-              "是否记录了岗位链接和公司名",
-              "是否给 recruiter 或校友发了消息",
-              "是否复盘了拒信或无回复原因",
-            ].map((item) => (
-              <label key={item}>
-                <input type="checkbox" />
-                <span>{item}</span>
-              </label>
-            ))}
-          </div>
+          <aside className="referee-panel">
+            <div className="panel-title">
+              <UserCheck size={20} />
+              <h3>Referee 不是形式</h3>
+            </div>
+            <p>
+              Referee check 会用来验证你在 CV、申请和面试里的 claims。申请前就要确认
+              referee 能讲出与你目标岗位相关的例子。
+            </p>
+          </aside>
         </section>
 
-        <section id="interview" className="section">
+        <section id="sources" className="section source-band">
           <SectionHeader
-            icon={<MessageSquareText size={22} />}
-            title="面试准备"
-            note="准备证据，不背答案。"
+            icon={<BadgeCheck size={22} />}
+            title="官方依据"
+            note="内容围绕 APSC 对 APS recruitment、merit、selection criteria 和 referee checks 的公开说明整理。"
           />
-          <div className="interview-board">
-            <article>
-              <h3>90 秒自我介绍</h3>
-              <p>背景一句话，目标岗位一句话，两个匹配能力，一个最近项目或成果，最后接回公司需求。</p>
-            </article>
-            <article>
-              <h3>STAR 故事库</h3>
-              <p>准备沟通冲突、学习新工具、解决问题、赶 deadline、团队合作和犯错复盘六类故事。</p>
-            </article>
-            <article>
-              <h3>面后跟进</h3>
-              <p>24 小时内感谢面试机会，补一句你对岗位的理解，再强调一个最匹配的能力。</p>
-            </article>
+          <div className="source-links">
+            <a href="https://www.apsc.gov.au/working-aps/joining-aps/cracking-code/3-applying-aps-job-cracking-code">
+              APSC: Applying for an APS job
+            </a>
+            <a href="https://www.apsc.gov.au/working-aps/joining-aps/cracking-code/8-frequently-asked-questions-cracking-code">
+              APSC: Merit and recruitment FAQ
+            </a>
+            <a href="https://www.apsc.gov.au/factsheet-referee-checks-0">
+              APSC: Referee checks
+            </a>
           </div>
         </section>
       </section>
     </main>
-  );
-}
-
-function Metric({ label, value, icon }) {
-  return (
-    <article className="metric">
-      <div>{icon}</div>
-      <span>{label}</span>
-      <strong>{value}</strong>
-    </article>
   );
 }
 

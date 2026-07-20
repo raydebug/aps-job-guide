@@ -1,6 +1,6 @@
 # APS 找工指导网站
 
-一个面向 APS 背景求职者的静态指南网站，包含找工路线图、岗位方向库、简历写法、投递节奏和面试准备。
+一个只聚焦 APS 求职的静态指南网站，重点是 merit evidence、500-word pitch、selection criteria、APS 等级判断、panel interview 和 referee validation。
 
 ## 本地预览
 
