@@ -5,10 +5,8 @@ import {
   BadgeCheck,
   BookOpenCheck,
   CheckCircle2,
-  ClipboardCheck,
   FilePenLine,
   Gauge,
-  Layers3,
   MessageSquareQuote,
   Scale,
   ShieldCheck,
@@ -17,30 +15,6 @@ import {
   UserCheck,
 } from "lucide-react";
 import "./styles.css";
-
-const priorities = [
-  {
-    icon: <Scale size={22} />,
-    title: "Merit 证据",
-    tag: "第一优先级",
-    detail:
-      "APS 不是看谁写得最热情，而是看谁能证明自己最符合岗位要求。每一句 claim 都要能被例子、结果和 referee 支撑。",
-  },
-  {
-    icon: <FilePenLine size={22} />,
-    title: "Pitch / Statement",
-    tag: "最容易拉开差距",
-    detail:
-      "很多 APS 申请 CV 不够用，关键在 500-word pitch、statement of claims 或 selection criteria responses。",
-  },
-  {
-    icon: <Layers3 size={22} />,
-    title: "APS 等级匹配",
-    tag: "先判断能不能打",
-    detail:
-      "APS 3/4/5/6 的区别不是标题好不好听，而是监督程度、复杂度、判断空间、stakeholder 范围和产出责任。",
-  },
-];
 
 const pitchPlan = [
   ["开头 50-70 字", "直接声明你申请什么岗位，并点出 2-3 个最相关能力。"],
@@ -109,45 +83,45 @@ const interviewQuestions = [
 
 function App() {
   return (
-    <main className="app-shell">
-      <aside className="sidebar" aria-label="站点导航">
-        <div className="brand">
-          <div className="brand-mark">APS</div>
-          <div>
-            <p>Application Toolkit</p>
-            <span>Evidence first, not generic job advice</span>
-          </div>
-        </div>
-        <nav>
-          <a href="#logic"><Scale size={18} />评分逻辑</a>
-          <a href="#pitch"><FilePenLine size={18} />Pitch</a>
-          <a href="#criteria"><BookOpenCheck size={18} />Selection Criteria</a>
-          <a href="#levels"><Gauge size={18} />APS 等级</a>
-          <a href="#interview"><MessageSquareQuote size={18} />面试</a>
-          <a href="#sources"><ShieldCheck size={18} />官方依据</a>
+    <main className="page">
+      <header className="topbar">
+        <a className="brand" href="#top" aria-label="APS Application Toolkit">
+          <span className="brand-mark">APS</span>
+          <span>Application Toolkit</span>
+        </a>
+        <nav aria-label="站点导航">
+          <a href="#logic">评分逻辑</a>
+          <a href="#pitch">Pitch</a>
+          <a href="#criteria">Criteria</a>
+          <a href="#levels">等级</a>
+          <a href="#interview">面试</a>
         </nav>
-      </aside>
+      </header>
 
-      <section className="workspace">
+      <section className="workspace" id="top">
         <header className="hero">
-          <div className="hero-copy">
-            <p className="eyebrow">APS 求职不是普通投简历</p>
-            <h1>把你的经历翻译成 selection panel 能打分的证据</h1>
-            <p className="hero-text">
-              这里优先解决 APS 申请最关键的东西：merit evidence、500-word pitch、
-              selection criteria、APS level fit、panel interview 和 referee validation。
-            </p>
-            <div className="hero-actions">
-              <a className="primary-action" href="#pitch">
-                写 pitch <ArrowRight size={18} />
-              </a>
-              <a className="secondary-action" href="#logic">
-                先看评分逻辑
-              </a>
-            </div>
+          <p className="eyebrow">只针对 APS 申请</p>
+          <h1>不要把自己写得更努力。要把经历写成 panel 能打分的证据。</h1>
+          <p className="hero-text">
+            APS 申请最核心的不是简历版式，也不是投多少岗位，而是把你的经历对应到
+            job description、selection criteria、APS level 和 merit ranking。
+          </p>
+          <div className="hero-actions">
+            <a className="primary-action" href="#pitch">
+              先写 500-word pitch <ArrowRight size={18} />
+            </a>
+            <a className="secondary-action" href="#logic">
+              看评分逻辑
+            </a>
           </div>
-          <div className="hero-example" aria-label="APS 改写例子">
-            <div className="example-label">普通经历怎么变成 APS 证据</div>
+        </header>
+
+        <section className="lead-example" aria-label="APS 改写例子">
+          <div className="example-heading">
+            <Sparkles size={20} />
+            <span>真正有用的改写长这样</span>
+          </div>
+          <div className="rewrite-pair">
             <p className="weak">I helped customers and answered questions.</p>
             <ArrowRight size={20} />
             <p className="strong">
@@ -155,19 +129,21 @@ function App() {
               and escalated complex cases where eligibility or risk required review.
             </p>
           </div>
-        </header>
+        </section>
 
-        <section className="priority-grid" aria-label="APS 申请优先级">
-          {priorities.map((item) => (
-            <article className="priority-card" key={item.title}>
-              <div className="card-top">
-                <span>{item.icon}</span>
-                <small>{item.tag}</small>
-              </div>
-              <h2>{item.title}</h2>
-              <p>{item.detail}</p>
-            </article>
-          ))}
+        <section className="diagnosis" aria-label="页面判断">
+          <article>
+            <strong>先判断等级</strong>
+            <span>APS 3/4/5/6 对复杂度、独立性和责任的要求不同。</span>
+          </article>
+          <article>
+            <strong>再写证据</strong>
+            <span>每个 claim 都要有场景、动作、结果和岗位贴合。</span>
+          </article>
+          <article>
+            <strong>最后验证</strong>
+            <span>面试和 referee 会检查你写的 claims 是否站得住。</span>
+          </article>
         </section>
 
         <section id="logic" className="section split">
@@ -195,7 +171,7 @@ function App() {
             </div>
           </div>
           <aside className="warning-panel">
-            <h3>可以丢弃或放后面</h3>
+            <h3>这些先放后面</h3>
             <ul>
               <li>大篇幅 LinkedIn 教程</li>
               <li>泛泛的每日海投计划</li>
