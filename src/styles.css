@@ -363,16 +363,14 @@ h1 {
 
 .flow h3,
 .template-panel h3,
-.referee-panel h3,
-.warning-panel h3 {
+.referee-panel h3 {
   margin-bottom: 7px;
 }
 
 .flow p,
 .pitch-board p,
 .template-panel p,
-.referee-panel p,
-.warning-panel li {
+.referee-panel p {
   color: #536273;
   line-height: 1.65;
 }
@@ -382,29 +380,12 @@ h1 {
   margin-bottom: 0;
 }
 
-.warning-panel,
 .template-panel,
 .referee-panel,
 .source-band {
   padding: 20px;
   border-radius: 8px;
   background: #ffffff;
-}
-
-.warning-panel {
-  background: #fff7f1;
-  border-left: 4px solid #dc7f44;
-}
-
-.warning-panel h3 {
-  color: #8a421c;
-}
-
-.warning-panel ul {
-  display: grid;
-  gap: 8px;
-  margin: 0;
-  padding-left: 20px;
 }
 
 .pitch-board {
@@ -626,7 +607,6 @@ h1 {
 
   .lead-example,
   .difference-section,
-  .warning-panel,
   .template-panel,
   .referee-panel,
   .source-band {

@@ -185,7 +185,7 @@ function App() {
           </article>
         </section>
 
-        <section id="logic" className="section split">
+        <section id="logic" className="section">
           <div>
             <SectionHeader
               icon={<Target size={22} />}
@@ -209,16 +209,6 @@ function App() {
               ))}
             </div>
           </div>
-          <aside className="warning-panel">
-            <h3>这些先放后面</h3>
-            <ul>
-              <li>大篇幅 LinkedIn 教程</li>
-              <li>泛泛的每日海投计划</li>
-              <li>漂亮但没有证据的简历模板</li>
-              <li>只讲 Seek 关键词的岗位库</li>
-              <li>没有 APS 等级区分的面试题</li>
-            </ul>
-          </aside>
         </section>
 
         <section id="pitch" className="section">
