@@ -123,7 +123,6 @@ function App() {
 
       <section className="workspace" id="top">
         <header className="hero">
-          <p className="eyebrow">只针对 APS 申请</p>
           <h1>APS 求职最大的不同：你不是在推销自己，而是在提交可评分证据。</h1>
           <p className="hero-text">
             普通求职常问“我怎么显得更强”。APS 申请首先要问：
